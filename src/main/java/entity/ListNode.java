@@ -1,10 +1,5 @@
 package entity;
 
-/**
- * @author whb
- * @Description:
- * @Date 2021-10-10
- */
 public class ListNode {
     public int val;
     public ListNode next;

@@ -2,11 +2,7 @@ package week1;
 
 import entity.ListNode;
 
-/**
- * @author whb
- * @Description:
- * @Date 2021-10-10
- */
+
 public class question2 {
 
     /**
