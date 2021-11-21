@@ -37,13 +37,15 @@ public class ArrayList<E> {
      * @param e
      */
     public void add(int index, E e) {
-        if (size == data.length) {
-            throw new IllegalArgumentException("add failed, Array is full");
-        }
-        if (index < 0 && index > size) {
+        if (index < 0 || index > size) {
             throw new IllegalArgumentException("add failed,  require index > 0 && index < size");
         }
-        // 最后一个到index 移动一位
+
+        if (size == data.length) {
+            resize(capacity * 2);
+        }
+
+        // 最后一个到index 向后移动一位
         for (int i = size - 1; i >= index; i--) {
             data[i + 1] = data[i];
         }
@@ -51,6 +53,17 @@ public class ArrayList<E> {
         data[index] = e;
 
         size++;
+    }
+
+    private void resize(int newCapacity) {
+        //创建一个 newCapacity容量的数组
+        E[] newDate = (E[]) new Object[newCapacity];
+        // 拷贝
+        for (int i = 0; i < size; i++) {
+            newDate[i] = data[i];
+        }
+        //赋值
+        data = newDate;
     }
 
     /**
@@ -78,7 +91,7 @@ public class ArrayList<E> {
      * @return
      */
     public E get(int index) {
-        if (index < 0 && index >= size) {
+        if (index < 0 || index >= size) {
             throw new IllegalArgumentException("get fail,");
         }
         return data[index];
@@ -121,7 +134,7 @@ public class ArrayList<E> {
      * @param e
      */
     public void set(int index, E e) {
-        if (index < 0 && index >= size) {
+        if (index < 0 || index >= size) {
             throw new IllegalArgumentException("add failed,  require index > 0 && index < size");
         }
         data[index] = e;
@@ -134,8 +147,14 @@ public class ArrayList<E> {
      * @return
      */
     public E remove(int index) {
-        if (index < 0 && index >= size) {
+        System.out.println("index:" + index + "size:{}" + size);
+        if (index < 0 || index >= size) {
             throw new IllegalArgumentException("add failed,  require index > 0 && index < size");
+        }
+
+        // size小于4分之1 缩容
+        if (size == data.length / 4) {
+            resize(data.length / 4);
         }
 
         E res = data[index];
@@ -144,6 +163,7 @@ public class ArrayList<E> {
             data[i - 1] = data[i];
         }
         size--;
+        data[size] = null;
         return res;
     }
 

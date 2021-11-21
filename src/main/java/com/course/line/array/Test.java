@@ -32,9 +32,20 @@ public class Test {
 //        arrayList.removeElement(22);
 //        System.out.println(arrayList);
 
-        ArrayList<String> stringArrayList = new ArrayList<String>(10);
+        ArrayList<String> stringArrayList = new ArrayList<String>(3);
         stringArrayList.addFirst("aaa");
-        stringArrayList.addLast("bbb");
+        stringArrayList.addFirst("bbb");
+        stringArrayList.addFirst("ccc");
+        System.out.println(stringArrayList);
+        stringArrayList.addFirst("ddd");
+
+        System.out.println(stringArrayList);
+        stringArrayList.remove(3);
+        System.out.println(stringArrayList);
+        stringArrayList.remove(3);
+        System.out.println(stringArrayList);
+
+        stringArrayList.remove(3);
         System.out.println(stringArrayList);
 
     }
