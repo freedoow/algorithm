@@ -63,7 +63,5 @@ public class question2 {
 
         System.out.println(listNode4.toString());
 
-        ListNode listNode1 = question2.mergeTwoLists(listNode, listNode4);
-        System.out.println(listNode1.toString());
     }
 }
