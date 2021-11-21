@@ -3,13 +3,13 @@ package com.course.line.array;
 /**
  * @author freedoow
  */
-public class ArrayList {
-    private int[] data;
+public class ArrayList<E> {
+    private E[] data;
     private int capacity;
     private int size;
 
     public ArrayList(int capacity) {
-        this.data = new int[capacity];
+        this.data = (E[]) new Object[capacity];
         this.capacity = capacity;
         this.size = 0;
     }
@@ -36,7 +36,7 @@ public class ArrayList {
      * @param index
      * @param e
      */
-    public void add(int index, int e) {
+    public void add(int index, E e) {
         if (size == data.length) {
             throw new IllegalArgumentException("add failed, Array is full");
         }
@@ -44,19 +44,21 @@ public class ArrayList {
             throw new IllegalArgumentException("add failed,  require index > 0 && index < size");
         }
         // 最后一个到index 移动一位
-        for (int i = index - 1; i >= index; i++) {
+        for (int i = size - 1; i >= index; i--) {
             data[i + 1] = data[i];
         }
+
         data[index] = e;
+
         size++;
     }
 
     /**
-     * 头插入 
+     * 头插入
      *
      * @param e
      */
-    public void addFirst(int e) {
+    public void addFirst(E e) {
         add(0, e);
     }
 
@@ -65,8 +67,105 @@ public class ArrayList {
      *
      * @param e
      */
-    public void addLast(int e) {
+    public void addLast(E e) {
         add(size, e);
     }
 
+    /**
+     * 获取索引对应的值
+     *
+     * @param index
+     * @return
+     */
+    public E get(int index) {
+        if (index < 0 && index >= size) {
+            throw new IllegalArgumentException("get fail,");
+        }
+        return data[index];
+    }
+
+    /**
+     * 找到一个元素的索引位置
+     *
+     * @param e
+     * @return
+     */
+    public int find(E e) {
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] == e) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 是否包含某个元素
+     *
+     * @param target
+     * @return
+     */
+    public boolean contains(E target) {
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] == target) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 修改
+     *
+     * @param index
+     * @param e
+     */
+    public void set(int index, E e) {
+        if (index < 0 && index >= size) {
+            throw new IllegalArgumentException("add failed,  require index > 0 && index < size");
+        }
+        data[index] = e;
+    }
+
+    /**
+     * 删除指定index元素
+     *
+     * @param index
+     * @return
+     */
+    public E remove(int index) {
+        if (index < 0 && index >= size) {
+            throw new IllegalArgumentException("add failed,  require index > 0 && index < size");
+        }
+
+        E res = data[index];
+
+        for (int i = index + 1; i < size; i++) {
+            data[i - 1] = data[i];
+        }
+        size--;
+        return res;
+    }
+
+    public void removeElement(E e) {
+        int index = find(e);
+        if (index != -1) {
+            remove(index);
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Array: size = %d, capacity = %d\n", size, data.length));
+        sb.append("[");
+        for (int i = 0; i < size; i++) {
+            sb.append(data[i]);
+            if (i != size - 1) {
+                sb.append(",");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }
