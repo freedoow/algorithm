@@ -3,8 +3,8 @@ package com.course.line.linkedlist;
 /**
  * @author whb
  */
-public class LinkedList {
-    private class Node<E> {
+public class LinkedList<E> {
+    private class Node {
         E e;
         Node next;
 
@@ -27,7 +27,9 @@ public class LinkedList {
         }
     }
 
+    // 头节点
     private Node head;
+    // 长度
     private int size;
 
     public LinkedList() {
