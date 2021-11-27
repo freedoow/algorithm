@@ -44,4 +44,37 @@ public class LinkedList<E> {
     public boolean isEmpty() {
         return size == 0;
     }
+
+    /**
+     * 查询指定索引的节点的值
+     *
+     * @param index
+     * @return
+     */
+    public E get(int index) {
+        if (index < 0 || index >= size) throw new IllegalArgumentException("get fail, index fail");
+        Node curr = head;
+        for (int i = 0; i < index; i++) {
+            curr = curr.next;
+        }
+        return curr.e;
+    }
+
+    /**
+     * 查询第一个值
+     *
+     * @return
+     */
+    public E getFirst() {
+        return get(0);
+    }
+
+    /**
+     * 查询最后一个值
+     *
+     * @return
+     */
+    public E getLast() {
+        return get(size - 1);
+    }
 }
