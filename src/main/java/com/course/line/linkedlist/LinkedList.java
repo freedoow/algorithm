@@ -138,4 +138,43 @@ public class LinkedList<E> {
         size++;
     }
 
+    /**
+     * 删除头节点
+     */
+    public E removeHead() {
+        if (isEmpty()) return null;
+
+        Node delNode = head;
+        head = head.next;
+        delNode.next = null;
+        size--;
+
+        return delNode.e;
+    }
+
+    /**
+     * 删除指定索引位置的节点
+     *
+     * @param index 索引
+     * @return
+     */
+    public E remove(int index) {
+        // size 节点是空的
+        if (index < 0 || index > size) throw new IllegalArgumentException("get fail, index fail");
+        if (index == 0) removeHead();
+        // 找到前一个节点
+        Node prev = head;
+        for (int i = 0; i < index - 1; i++) {
+            prev = prev.next;
+        }
+        // 标记删除的节点
+        Node delNode = prev.next;
+        // 前一个节点next指向删除节点的next
+        prev.next = delNode.next;
+        delNode.next = null;
+
+        size--;
+
+        return delNode.e;
+    }
 }
