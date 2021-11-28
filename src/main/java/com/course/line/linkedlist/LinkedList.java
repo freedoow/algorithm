@@ -161,7 +161,7 @@ public class LinkedList<E> {
     public E remove(int index) {
         // size 节点是空的
         if (index < 0 || index > size) throw new IllegalArgumentException("get fail, index fail");
-        if (index == 0) removeHead();
+        if (index == 0) return removeHead();
         // 找到前一个节点
         Node prev = head;
         for (int i = 0; i < index - 1; i++) {
