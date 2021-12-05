@@ -1,7 +1,7 @@
 package com.course.line.linkedlist;
 
 /**
- * @author whb
+ * @author freedoow
  */
 public class LinkedList<E> {
     private class Node {
