@@ -14,7 +14,7 @@ public class LinkedList<E> {
         }
 
         public Node(E e) {
-            this.e = e;
+            this(e, null);
         }
 
         public Node() {
@@ -28,12 +28,12 @@ public class LinkedList<E> {
     }
 
     // 头节点(dummy-虚拟假的)
-    private Node dummyNode;
+    private Node dummyHead;
     // 长度
     private int size;
 
     public LinkedList() {
-        dummyNode = new Node();
+        dummyHead = new Node();
         size = 0;
     }
 
@@ -53,7 +53,7 @@ public class LinkedList<E> {
      */
     public E get(int index) {
         if (index < 0 || index >= size) throw new IllegalArgumentException("get fail, index fail");
-        Node curr = dummyNode.next;
+        Node curr = dummyHead.next;
         for (int i = 0; i < index; i++) {
             curr = curr.next;
         }
@@ -85,8 +85,8 @@ public class LinkedList<E> {
      * @param e     修改的值
      */
     public void set(int index, E e) {
-        if (index < 0 || index >= size) throw new IllegalArgumentException("get fail, index fail");
-        Node curr = dummyNode.next;
+        if (index < 0 || index > size) throw new IllegalArgumentException("get fail, index fail");
+        Node curr = dummyHead.next;
         for (int i = 0; i < index; i++) {
             curr = curr.next;
         }
@@ -106,7 +106,6 @@ public class LinkedList<E> {
 //        head = new Node(e, head);
 
         add(0, e);
-        size++;
     }
 
     /**
@@ -115,7 +114,7 @@ public class LinkedList<E> {
      * @param e
      */
     public void addLast(E e) {
-        add(size - 1, e);
+        add(size, e);
     }
 
     /**
@@ -125,10 +124,10 @@ public class LinkedList<E> {
      * @param e
      */
     public void add(int index, E e) {
-        if (index < 0 || index >= size) throw new IllegalArgumentException("get fail, index fail");
+        if (index < 0 || index > size) throw new IllegalArgumentException("add failed, index must >= 0 and <= size");
 //        if (index == 0) addFirst(e);
 
-        Node prev = dummyNode;
+        Node prev = dummyHead;
 //        for (int i = 0; i < index - 1; i++) {
 //            prev = prev.next;
 //        }
@@ -139,12 +138,13 @@ public class LinkedList<E> {
 //        addNode.next = prev.next;
 //        prev.next = addNode;
         prev.next = new Node(e, prev.next);
-
         size++;
     }
 
     /**
      * 删除头节点
+     *
+     * @return
      */
     public E removeHead() {
 //        if (isEmpty()) return null;
@@ -169,7 +169,7 @@ public class LinkedList<E> {
         if (index < 0 || index > size) throw new IllegalArgumentException("get fail, index fail");
 //        if (index == 0) return removeHead();
         // 找到前一个节点
-        Node prev = dummyNode;
+        Node prev = dummyHead;
         for (int i = 0; i < index; i++) {
             prev = prev.next;
         }
@@ -182,5 +182,35 @@ public class LinkedList<E> {
         size--;
 
         return delNode.e;
+    }
+
+    /**
+     * 判断链表是否包含某个元素
+     *
+     * @param e
+     * @return
+     */
+    public boolean contains(E e) {
+        Node curr = dummyHead.next;
+        while (curr.next != null) {
+            if (curr.e.equals(e)) {
+                return true;
+            }
+            curr = curr.next;
+        }
+
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Node curr = dummyHead.next;
+        while (curr != null) {
+            sb.append(curr + "->");
+            curr = curr.next;
+        }
+        sb.append("null");
+        return sb.toString();
     }
 }
