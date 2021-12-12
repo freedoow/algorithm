@@ -64,6 +64,8 @@ public class ArrayList<E> {
         }
         //赋值
         data = newDate;
+        //重新赋值
+        capacity = newCapacity;
     }
 
     /**
@@ -175,7 +177,6 @@ public class ArrayList<E> {
      * @return
      */
     public E remove(int index) {
-        System.out.println("index:" + index + "size:{}" + size);
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("add failed,  require index > 0 && index < size");
         }

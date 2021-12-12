@@ -2,7 +2,6 @@ package com.course.line.stack.array;
 
 import com.course.line.stack.Stack;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**

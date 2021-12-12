@@ -1,7 +1,7 @@
 package com.course.line.stack.array;
 
 /**
- * @author whb
+ * @author freedoow
  * @Description:
  * @Date 2021-12-12
  */
@@ -26,5 +26,27 @@ public class Test {
 
         stack.pop();
         System.out.println(stack.toString());
+
+        System.out.println("---------------");
+
+        DynamicArrayStack<Object> dynamicArrayStack = new DynamicArrayStack<>(5);
+
+        dynamicArrayStack.push(1);
+        System.out.println(dynamicArrayStack.toString());
+
+        dynamicArrayStack.push(2);
+        System.out.println(dynamicArrayStack.toString());
+
+        dynamicArrayStack.push(3);
+        System.out.println(dynamicArrayStack.toString());
+
+        dynamicArrayStack.push(4);
+        System.out.println(dynamicArrayStack.toString());
+
+        dynamicArrayStack.pop();
+        System.out.println(dynamicArrayStack.toString());
+
+        dynamicArrayStack.pop();
+        System.out.println(dynamicArrayStack.toString());
     }
 }

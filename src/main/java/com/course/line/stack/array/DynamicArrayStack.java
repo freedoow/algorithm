@@ -4,7 +4,7 @@ import com.course.line.array.ArrayList;
 import com.course.line.stack.Stack;
 
 /**
- * @author whb
+ * @author freedoow
  * @Description: 动态数组实现
  * @Date 2021-12-12
  */

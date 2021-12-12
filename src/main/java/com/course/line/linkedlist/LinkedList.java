@@ -125,19 +125,15 @@ public class LinkedList<E> {
      */
     public void add(int index, E e) {
         if (index < 0 || index > size) throw new IllegalArgumentException("add failed, index must >= 0 and <= size");
-//        if (index == 0) addFirst(e);
 
         Node prev = dummyHead;
-//        for (int i = 0; i < index - 1; i++) {
-//            prev = prev.next;
-//        }
+
         for (int i = 0; i < index; i++) {
             prev = prev.next;
         }
-//        Node addNode = new Node(e);
-//        addNode.next = prev.next;
-//        prev.next = addNode;
+
         prev.next = new Node(e, prev.next);
+
         size++;
     }
 
@@ -182,6 +178,15 @@ public class LinkedList<E> {
         size--;
 
         return delNode.e;
+    }
+
+    /**
+     * 移除第一个
+     *
+     * @return
+     */
+    public E removeFirst() {
+        return remove(0);
     }
 
     /**
