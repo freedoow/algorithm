@@ -98,6 +98,15 @@ public class ArrayList<E> {
     }
 
     /**
+     * 获取最后一个
+     *
+     * @return
+     */
+    public E getLast() {
+        return get(size - 1);
+    }
+
+    /**
      * 找到一个元素的索引位置
      *
      * @param e
@@ -138,6 +147,25 @@ public class ArrayList<E> {
             throw new IllegalArgumentException("add failed,  require index > 0 && index < size");
         }
         data[index] = e;
+    }
+
+    /**
+     * 移除第一个
+     *
+     * @return
+     */
+    public E removeFirst() {
+        return remove(0);
+    }
+
+
+    /**
+     * 移除最后一个
+     *
+     * @return
+     */
+    public E removeLast() {
+        return remove(size - 1);
     }
 
     /**
