@@ -100,6 +100,15 @@ public class ArrayList<E> {
     }
 
     /**
+     * 获得首元素对应的值
+     *
+     * @return
+     */
+    public E getFirst() {
+        return get(0);
+    }
+
+    /**
      * 获取最后一个
      *
      * @return
