@@ -21,4 +21,9 @@ public class Sorter {
         data[j] = temp;
     }
 
+    public static void Swap(Integer[] data, int i, int j) {
+        int temp = data[i];
+        data[i] = data[j];
+        data[j] = temp;
+    }
 }

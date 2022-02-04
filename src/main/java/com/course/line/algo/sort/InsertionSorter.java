@@ -9,7 +9,6 @@ import java.util.Arrays;
  */
 public class InsertionSorter extends Sorter {
 
-
     public static void sort(int[] data) {
 
         if (data == null || data.length == 1) return;
@@ -30,18 +29,15 @@ public class InsertionSorter extends Sorter {
     }
 
     public static void sort1(int[] data) {
-
         if (data == null || data.length == 1) return;
 
         for (int i = 1; i < data.length; i++) {  // 插入的次数
             for (int j = i; j > 0; j--) {
-
                 if (data[j] < data[j - 1]) {
                     Swap(data, j, j - 1);
                 } else {
                     break;
                 }
-
             }
         }
 

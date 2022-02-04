@@ -37,6 +37,6 @@ public class ReverseString {
     }
 
     public static void main(String[] args) {
-        System.out.println(ReverseString.ReverseString("hello").toString());
+        System.out.println(ReverseString.ReverseString("hello"));
     }
 }
