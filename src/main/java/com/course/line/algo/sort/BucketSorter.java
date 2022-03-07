@@ -50,12 +50,6 @@ public class BucketSorter {
         }
     }
 
-    public static void main(String[] args) {
-        int[] data = new int[]{2, 5, 1, 23, 22, 33, 56, 12, 5, 3, 5, 6, 8, 2, 3, 4};
-        new BucketSorter().sort(data);
-        System.out.println(Arrays.toString(data));
-    }
-
 
     public void sort1(int[] data) {
         if (data == null || data.length <= 2) return;
@@ -95,6 +89,12 @@ public class BucketSorter {
                 }
             }
         }
+    }
 
+
+    public static void main(String[] args) {
+        int[] data = new int[]{2, 5, 1, 23, 22, 33, 56, 12, 5, 3, 5, 6, 8, 2, 3, 4};
+        new BucketSorter().sort(data);
+        System.out.println(Arrays.toString(data));
     }
 }
