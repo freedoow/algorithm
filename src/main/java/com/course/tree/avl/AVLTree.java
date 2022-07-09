@@ -34,10 +34,20 @@ public class AVLTree<E extends Comparable> {
         return size;
     }
 
+    //计算高度
     public int getHeight(TreeNode node) {
         if (node == null) return 0;
         return node.height;
     }
+
+
+    //计算平衡因子
+    private int getBalanceFactor(TreeNode node) {
+        if (node == null) return 0;
+        //平衡因子等于左右节点的高度差
+        return getHeight(node.left) - getHeight(node.right);
+    }
+
 
     public boolean isEmpty() {
         return size == 0;
@@ -52,7 +62,7 @@ public class AVLTree<E extends Comparable> {
 
     // 将节点E插入 node 节点的子树中
     // 返回插入节点后的二叉查找树的节点
-    public TreeNode add(TreeNode node, E e) {
+    private TreeNode add(TreeNode node, E e) {
 
         // 1 递归终止条件
         if (node == null) {
