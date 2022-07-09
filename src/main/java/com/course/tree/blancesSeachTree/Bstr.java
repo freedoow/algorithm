@@ -81,15 +81,20 @@ public class Bstr<E extends Comparable> {
      */
     public TreeNode find(E target) {
         if (root == null) return null;
-
-        TreeNode curr = root;
-        while (curr != null) {
-            if (target.compareTo(curr.data) == 0) {
-                return curr;
-            }
-        }
-        return null;
+        return find(root, target);
     }
+
+    public TreeNode find(TreeNode node, E target) {
+        int compareValue = target.compareTo(node.data);
+        if (compareValue == 0) {
+            return node;
+        } else if (compareValue < 0) {
+            return find(node.left, target);
+        } else {
+            return find(node.right, target);
+        }
+    }
+
 
     /**
      * 修改节点值
@@ -165,11 +170,12 @@ public class Bstr<E extends Comparable> {
      */
     public E minValue() {
         if (root == null) throw new RuntimeException("tree is null");
-        TreeNode min = root;
-        while (min.left != null) {
-            min = min.left;
-        }
-        return min.data;
+        return minValue(root);
+    }
+
+    public E minValue(TreeNode node) {
+        if (node.left == null) return node.data;
+        return minValue(node.left);
     }
 
     /**
@@ -177,12 +183,14 @@ public class Bstr<E extends Comparable> {
      */
     public E maxValue() {
         if (root == null) throw new RuntimeException("tree is null");
-        TreeNode min = root;
-        while (min.right != null) {
-            min = min.right;
-        }
-        return min.data;
+        return maxValue(root);
     }
+
+    public E maxValue(TreeNode node) {
+        if (node.right == null) return node.data;
+        return minValue(node.right);
+    }
+
 
     // 删除操作
 
