@@ -33,7 +33,8 @@ public class AVLTree<E extends Comparable> {
     public int getSize() {
         return size;
     }
-    public int getHeight(TreeNode node){
+
+    public int getHeight(TreeNode node) {
         if (node == null) return 0;
         return node.height;
     }
@@ -65,6 +66,10 @@ public class AVLTree<E extends Comparable> {
         } else {
             node.right = add(node.right, e);
         }
+
+        // 更新父亲接口的高度
+        // 父亲节点的高度值等于左右子节点最大高度值再加上1
+        node.height = Math.max(node.left.height, node.right.height) + 1;
 
         return node;
     }
