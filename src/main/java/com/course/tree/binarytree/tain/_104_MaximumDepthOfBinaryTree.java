@@ -1,4 +1,5 @@
-package com.course.tree.binarytree;
+package com.course.tree.binarytree.tain;
+
 
 import java.util.*;
 
