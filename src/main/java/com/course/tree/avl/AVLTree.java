@@ -47,6 +47,29 @@ public class AVLTree<E extends Comparable> {
         return getHeight(node.left) - getHeight(node.right);
     }
 
+    //是否是二叉查找树
+    public boolean isBST() {
+        List<E> res = inOrder();
+        int len = res.size();
+        if (len <= 1) return true;
+
+        for (int i = 1; i < res.size(); i++) {
+            if (res.get(i).compareTo(res.get(i - 1)) > 0) return false;
+        }
+        return true;
+    }
+
+    //二叉查找树是否平衡
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    public boolean isBalanced(TreeNode node) {
+        if (node == null) return true;
+        int balanceFactor = getBalanceFactor(node);
+        if (Math.abs(balanceFactor) <= 1) return true;
+        return false;
+    }
 
     public boolean isEmpty() {
         return size == 0;
@@ -80,7 +103,6 @@ public class AVLTree<E extends Comparable> {
 
         // 计算每个父亲节点的平衡因子
         int balanceFactor = getBalanceFactor(node);
-        System.out.println(Math.abs(balanceFactor));
         if (Math.abs(balanceFactor) > 1) {
             System.out.println("不是平衡二叉树");
         }
@@ -133,59 +155,63 @@ public class AVLTree<E extends Comparable> {
      * 前序遍历
      */
     public List<E> preOrder() {
-        ArrayList<E> res = new ArrayList<>();
-        if (root == null) return res;
+        List<E> res = new ArrayList<>();
 
-        Stack<TreeNode> stack = new Stack<>();
-        stack.push(root);
+        preOrder(root, res);
 
-        while (!stack.isEmpty()) {
-            TreeNode curr = stack.pop();
-            res.add(curr.data);
-            if (curr.left != null) stack.push(curr.left);
-            if (curr.right != null) stack.push(curr.right);
-        }
         return res;
+    }
+
+    private void preOrder(TreeNode node, List<E> res) {
+        if (node == null) {
+            return;
+        }
+
+        res.add(node.data);
+        preOrder(node.left, res);
+        preOrder(node.right, res);
     }
 
     /**
      * 中序遍历
      */
     public List<E> inOrder() {
-        ArrayList<E> res = new ArrayList<>();
-        if (root == null) return res;
+        List<E> res = new ArrayList<>();
 
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode curr = root;
-        while (curr != null || !stack.isEmpty()) {
-            while (curr != null) {
-                stack.push(curr);
-                curr = curr.left;
-            }
-            curr = stack.pop();
-            res.add(curr.data);
-            curr = curr.right;
-        }
+        inOrder(root, res);
+
         return res;
+    }
+
+    private void inOrder(TreeNode node, List<E> res) {
+        if (node == null) {
+            return;
+        }
+
+        inOrder(node.left, res);
+        res.add(node.data);
+        inOrder(node.right, res);
     }
 
     /**
      * 后序遍历
      */
     public List<E> postOrder() {
-        LinkedList<E> res = new LinkedList<>();
-        if (root == null) return res;
+        LinkedList res = new LinkedList<>();
 
-        Stack<TreeNode> stack = new Stack<>();
-        stack.push(root);
+        postOrder(root, res);
 
-        while (!stack.isEmpty()) {
-            TreeNode curr = stack.pop();
-            res.addFirst(curr.data);
-            if (curr.left != null) stack.push(curr.left);
-            if (curr.right != null) stack.push(curr.right);
-        }
         return res;
+    }
+
+    private void postOrder(TreeNode node, List<E> res) {
+        if (node == null) {
+            return;
+        }
+
+        postOrder(node.left, res);
+        postOrder(node.right, res);
+        res.add(node.data);
     }
 
     /**
