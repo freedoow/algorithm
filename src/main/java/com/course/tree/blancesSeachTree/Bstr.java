@@ -245,122 +245,50 @@ public class Bstr<E extends Comparable> {
         return node;
     }
 
-
-    public void remove1(E e) {
-        // 找到删除值
-        if (root == null) throw new RuntimeException("tree is null");
-
-        TreeNode curr = root;
-        TreeNode parent = null;
-
-        while (curr != null && e.compareTo(curr.data) != 0) {
-            parent = curr;
-            if (e.compareTo(curr.data) < 0) curr = curr.left;
-            else curr = curr.right;
-        }
-
-        if (curr == null) return;
-
-        if (curr.left != null && curr.right != null) {
-            // 找到curr 的右子树的最小值节点
-            TreeNode min = curr.right;
-            TreeNode minParent = curr;
-            while (min.left != null) {
-                minParent = min;
-                min = min.left;
-            }
-            // 覆盖需要删除节点的值为最小值
-            curr.data = min.data;
-            // 删除最小值
-            curr = min;
-            parent = minParent;
-        }
-
-        //删除叶子节点 & 仅有一个子树
-        TreeNode child; // 用于储存 需要删除节点的子节点
-        if (parent.left != null) {
-            child = curr.left;
-            if (parent != null) curr.left = null;
-        } else if (parent.right != null) {
-            child = curr.right;
-            if (parent != null) curr.right = null;
-        } else {
-            child = null;
-        }
-
-
-        if (parent == null) {
-            root = child;
-        } else if (curr == parent.left) {
-            parent.left = child;
-        } else if (curr == parent.right) {
-            parent.right = child;
-        }
-    }
-
     /**
      * 删除任意节点
      */
     public void remove(E e) {
-        if (root == null) throw new RuntimeException("tree is null");
-
-        TreeNode curr = root;
-        TreeNode parent = null;
-
-        while (curr != null && e.compareTo(curr.data) != 0) {
-            parent = curr;
-            if (e.compareTo(curr.data) < 0) curr = curr.left;
-            else curr = curr.right;
-        }
-
-        if (curr == null) return;
-
-
-        if (curr.left == null && curr.right == null) { // 删除叶子节点
-            if (parent == null) root = null;
-            if (curr == parent.left) parent.left = null;
-            if (curr == parent.right) parent.right = null;
-        } else if (curr.left != null && curr.right == null) { // 删除只有左子树
-
-            if (parent == null) {
-                root = curr.left;
-            } else if (curr == parent.left) {
-                parent.left = curr.left;
-                curr.left = null;
-            } else if (curr == parent.right) {
-                parent.right = curr.left;
-                curr.left = null;
-            }
-
-        } else if (curr.right != null && curr.left == null) { // 删除只有右子树
-
-            if (parent == null) {
-                root = curr.right;
-            } else if (curr == parent.left) {
-                parent.left = curr.right;
-                curr.right = null;
-            } else if (curr == parent.right) {
-                parent.right = curr.right;
-                curr.right = null;
-            }
-
-        } else if (curr.left != null && curr.right != null) {
-            // 找到curr 的右子树的最小值节点
-            TreeNode min = curr.right;
-            TreeNode minParent = curr;
-            while (min.left != null) {
-                minParent = min;
-                min = min.left;
-            }
-            // 覆盖需要删除节点的值为最小值
-            curr.data = min.data;
-            // 删除最小值
-            minParent.left = null;
-
-
-        }
+        root = remove(root, e);
     }
 
+    // node为根节点的子树中删除e
+    // 返回删除后的子树的根节点
+    public TreeNode remove(TreeNode node, E e) {
+        if (node == null) return null;
+
+        int compareValue = e.compareTo(node.data);
+        if (compareValue < 0) {
+            node.left = remove(node.left, e);
+            return node;
+        } else if (compareValue > 0) {
+            node.right = remove(node.right, e);
+            return node;
+        } else {
+            if (node.left == null) {
+                TreeNode rightRoot = node.right;
+                node.right = null;
+                size--;
+                return rightRoot;
+            }
+            if (node.right == null) {
+                TreeNode leftRoot = node.left;
+                node.left = null;
+                size--;
+                return leftRoot;
+            }
+
+            // 后继节点
+            TreeNode successor = removeMin(node);
+            node.left = successor.left;
+            node.right = successor.right;
+            successor.right = null;
+            successor.left = null;
+
+            size--;
+            return successor;
+        }
+    }
 
     /**
      * @param args
