@@ -199,51 +199,52 @@ public class Bstr<E extends Comparable> {
      *
      * @return
      */
-    public E deleteMinValue() {
+    public E removeMin() {
         if (root == null) throw new RuntimeException("tree is null");
-        TreeNode min = root;
-        TreeNode parent = null;
+        E res = minValue();
+        removeMin();
+        return res;
+    }
 
-        while (min.left != null) {
-            parent = min;
-            min = min.left;
+    public TreeNode removeMin(TreeNode node) {
+        //递
+        if (node.left == null) {
+            TreeNode rightNode = node.right;
+            node.right = null;
+            size--;
+            return rightNode;
         }
-        if (parent == null) {// 删除根节点
-            root = root.right;
-        } else {
-            parent.left = min.right;
-            min.right = null;
-        }
 
-
-        size--;
-        return min.data;
+        //归
+        node.left = removeMin(node.left);
+        return node;
     }
 
     /**
      * 删除最大值
      */
 
-    public E deleteMaxValue() {
+    public E removeMax() {
         if (root == null) throw new RuntimeException("tree is null");
-        TreeNode max = root;
-        TreeNode parent = null;
-
-        while (max.right != null) {
-            parent = max;
-            max = max.right;
-        }
-
-        if (parent == null) {// 删除根节点
-            root = root.left;
-        } else {
-            parent.right = max.left;
-            max.left = null;
-        }
-
-        size--;
-        return max.data;
+        E res = maxValue();
+        removeMax(root);
+        return res;
     }
+
+    public TreeNode removeMax(TreeNode node) {
+        //递
+        if (node.right == null) {
+            TreeNode leftNode = node.left;
+            node.left = null;
+            size--;
+            return leftNode;
+        }
+
+        //归
+        node.right = removeMin(node.right);
+        return node;
+    }
+
 
     public void remove1(E e) {
         // 找到删除值
