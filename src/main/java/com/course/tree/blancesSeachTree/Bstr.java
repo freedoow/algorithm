@@ -41,37 +41,27 @@ public class Bstr<E extends Comparable> {
      * 插入操作
      **/
     public void add(E e) {
-        if (root == null) {
-            root = new TreeNode(e);
-        } else {
-            add(root, e);
-        }
+        root = add(root, e);
     }
 
-    // 将节点E插入
-    public void add(TreeNode node, E e) {
+    // 将节点E插入 node 节点的子树中
+    // 返回插入节点后的二叉查找树的节点
+    public TreeNode add(TreeNode node, E e) {
 
-
-        int compareData = e.compareTo(node.data);
         // 1 递归终止条件
-        if (compareData == 0) {
-            return;
-        } else if (compareData < 0 && node.left == null) {
-            node.left = new TreeNode(e);
+        if (node == null) {
             size++;
-            return;
-        } else if (compareData > 0 && node.right == null) {
-            node.right = new TreeNode(e);
-            size++;
-            return;
+            return new TreeNode(e);
         }
 
         //2.递归调用
-        if (compareData < 0) {
-            add(node.left, e);
+        if (e.compareTo(node.data) < 0) {
+            node.left = add(node.left, e);
         } else {
-            add(node.right, e);
+            node.right = add(node.right, e);
         }
+
+        return node;
     }
 
     /**
