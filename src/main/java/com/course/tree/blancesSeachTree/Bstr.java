@@ -57,7 +57,7 @@ public class Bstr<E extends Comparable> {
         //2.递归调用
         if (e.compareTo(node.data) < 0) {
             node.left = add(node.left, e);
-        } else {
+        } else if(e.compareTo(node.data) > 0) {
             node.right = add(node.right, e);
         }
 

@@ -15,7 +15,7 @@ public class AVLTree<E extends Comparable> {
         E data;
         TreeNode left;
         TreeNode right;
-        int height;
+        int height = 1;
 
         public TreeNode(E data) {
             this.data = data;
@@ -35,11 +35,10 @@ public class AVLTree<E extends Comparable> {
     }
 
     //计算高度
-    public int getHeight(TreeNode node) {
+    private int getHeight(TreeNode node) {
         if (node == null) return 0;
         return node.height;
     }
-
 
     //计算平衡因子
     private int getBalanceFactor(TreeNode node) {
@@ -63,24 +62,28 @@ public class AVLTree<E extends Comparable> {
     // 将节点E插入 node 节点的子树中
     // 返回插入节点后的二叉查找树的节点
     private TreeNode add(TreeNode node, E e) {
-
         // 1 递归终止条件
         if (node == null) {
             size++;
             return new TreeNode(e);
         }
-
         //2.递归调用
         if (e.compareTo(node.data) < 0) {
             node.left = add(node.left, e);
-        } else {
+        } else if (e.compareTo(node.data) > 0) {
             node.right = add(node.right, e);
         }
 
         // 更新父亲接口的高度
         // 父亲节点的高度值等于左右子节点最大高度值再加上1
-        node.height = Math.max(node.left.height, node.right.height) + 1;
+        node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
 
+        // 计算每个父亲节点的平衡因子
+        int balanceFactor = getBalanceFactor(node);
+        System.out.println(Math.abs(balanceFactor));
+        if (Math.abs(balanceFactor) > 1) {
+            System.out.println("不是平衡二叉树");
+        }
         return node;
     }
 
