@@ -1,37 +1,59 @@
-package com.course.tree.avl;
+package com.course.tree.redBlack;
+
+import com.sun.org.apache.bcel.internal.generic.FADD;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * @author whb
  * @Description: AVL
- * @Date 2022-07-09
+ * @Date 2022-07-10
  */
-public class AVLTree<E extends Comparable> {
+public class redBlackTree<E extends Comparable> {
+
+    private static final boolean RED = true;
+    private static final boolean BLACK = false;
+
     private class TreeNode {
         E data;
         TreeNode left;
         TreeNode right;
         int height = 1;
+        boolean color;
 
         public TreeNode(E data) {
             this.data = data;
+            //1、红黑树中，红色节点代表的就是它和它的父亲在2-3树中是融合在一起的
+            //2、在2-3树中 插入新建节点时候，都是先和叶子节点进行融合
+            this.color = RED;
         }
     }
 
     private TreeNode root;
     private int size;
 
-    public AVLTree() {
+    public redBlackTree() {
         this.root = null;
         this.size = 0;
     }
 
     public int getSize() {
         return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    //节点是否为红色
+    private boolean isRED(TreeNode node) {
+        // 根据红黑树定义，空节点的颜色是黑色
+        if (node == null) {
+            return BLACK;
+        }
+        return node.color;
     }
 
     //计算高度
@@ -117,16 +139,12 @@ public class AVLTree<E extends Comparable> {
         return x;
     }
 
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
     /**
      * 插入操作
      **/
     public void add(E e) {
         root = add(root, e);
+        root.color = BLACK;
     }
 
     // 将节点E插入 node 节点的子树中
