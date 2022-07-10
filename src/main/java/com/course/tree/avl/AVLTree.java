@@ -64,6 +64,51 @@ public class AVLTree<E extends Comparable> {
         return isBalanced(root);
     }
 
+    // 左旋转
+    // 对节点 y 进行向右旋转操作，返回旋转后新的根节点 x
+    //        y                                    x
+    //       / \                                 /   \
+    //      x   T4        向右旋转 (y)          z       y
+    //     / \          --------------->      / \     / \
+    //    z   T3                            T1   T2 T3   T4
+    //   / \
+    // T1   T2
+    public TreeNode rightRotate(TreeNode y) {
+        TreeNode x = y.left;
+        TreeNode t3 = x.left;
+
+        // 右旋转
+        x.right = y;
+        y.left = t3;
+        // 计算子节点 才能父节点
+        y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
+        x.height = Math.max(getHeight(x.left), getHeight(x.right)) + 1;
+
+        return y;
+    }
+
+    // 对节点y进行向左旋转操作，返回旋转后新的根节点x
+    //    y                             x
+    //  /  \                          /   \
+    // T4   x      向左旋转 (y)       y     z
+    //     / \   - - - - - - - ->   / \   / \
+    //   T3  z                     T4 T3 T1 T2
+    //      / \
+    //     T1 T2
+    public TreeNode leftRotate(TreeNode y) {
+        TreeNode x = y.right;
+        TreeNode t3 = x.left;
+        // 左旋转
+        x.left = y;
+        y.right = t3;
+
+        // 计算子节点 才能父节点
+        y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
+        x.height = Math.max(getHeight(x.left), getHeight(x.right)) + 1;
+
+        return x;
+    }
+
     public boolean isBalanced(TreeNode node) {
         if (node == null) return true;
         int balanceFactor = getBalanceFactor(node);
@@ -103,8 +148,15 @@ public class AVLTree<E extends Comparable> {
 
         // 计算每个父亲节点的平衡因子
         int balanceFactor = getBalanceFactor(node);
-        if (Math.abs(balanceFactor) > 1) {
-            System.out.println("不是平衡二叉树");
+
+        //左边不平衡 进行右旋转
+        if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0) {
+            return rightRotate(node);
+        }
+
+        //右边不平衡 进行左旋转
+        if (balanceFactor < -1 && getBalanceFactor(node.left) <= 0) {
+            return leftRotate(node);
         }
         return node;
     }
