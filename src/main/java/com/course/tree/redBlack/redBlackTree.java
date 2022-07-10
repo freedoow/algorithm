@@ -93,48 +93,44 @@ public class redBlackTree<E extends Comparable> {
         return isBalanced(node.left) && isBalanced(node.right);
     }
 
-    // 左旋转
-    // 对节点 y 进行向右旋转操作，返回旋转后新的根节点 x
-    //        y                                    x
-    //       / \                                 /   \
-    //      x   T4        向右旋转 (y)          z       y
-    //     / \          --------------->      / \     / \
-    //    z   T3                            T1   T2 T3   T4
-    //   / \
-    // T1   T2
-    public TreeNode rightRotate(TreeNode y) {
-        TreeNode x = y.left;
-        TreeNode t3 = x.right;
 
-        // 右旋转
-        x.right = y;
-        y.left = t3;
-        // 计算子节点 才能父节点
-        y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
-        x.height = Math.max(getHeight(x.left), getHeight(x.right)) + 1;
+    //    node                    x
+    //    /  \       左旋转      /   \
+    //   T1   x     ------->  node  T3
+    //       / \              /  \
+    //      T2 T3            T1  T2
+    private TreeNode leftRotate(TreeNode node) {
+        TreeNode x = node.right;
+
+        node.right = x.left;
+        x.left = node;
+
+        x.color = node.color;
+        node.color = RED;
 
         return x;
     }
 
-    // 对节点y进行向左旋转操作，返回旋转后新的根节点x
-    //    y                             x
-    //  /  \                          /   \
-    // T4   x      向左旋转 (y)       y     z
-    //     / \   - - - - - - - ->   / \   / \
-    //   T3  z                     T4 T3 T1 T2
-    //      / \
-    //     T1 T2
-    public TreeNode leftRotate(TreeNode y) {
-        TreeNode x = y.right;
-        TreeNode t3 = x.left;
+    //颜色翻转
+    private void flipColors(TreeNode node) {
+        node.color = RED;
+        node.left.color = BLACK;
+        node.right.color = BLACK;
+    }
 
-        // 左旋转
-        x.left = y;
-        y.right = t3;
+    //    node                    x
+    //    /  \       右旋转      /   \
+    //   x   T2     ------->   y   node
+    //  / \                        /  \
+    // y  T1                      T1  T2
+    private TreeNode rightRotate(TreeNode node) {
+        TreeNode x = node.left;
 
-        // 计算子节点 才能父节点
-        y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
-        x.height = Math.max(getHeight(x.left), getHeight(x.right)) + 1;
+        node.left = x.right;
+        x.right = node;
+
+        x.color = node.color;
+        node.color = RED;
 
         return x;
     }
@@ -146,6 +142,13 @@ public class redBlackTree<E extends Comparable> {
         root = add(root, e);
         root.color = BLACK;
     }
+
+    private TreeNode leftRotate() {
+
+    }
+
+    ;
+
 
     // 将节点E插入 node 节点的子树中
     // 返回插入节点后的二叉查找树的节点
