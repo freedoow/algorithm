@@ -53,8 +53,8 @@ public class AVLTree<E extends Comparable> {
         int len = res.size();
         if (len <= 1) return true;
 
-        for (int i = 1; i < res.size(); i++) {
-            if (res.get(i).compareTo(res.get(i - 1)) > 0) return false;
+        for (int i = 1; i < len; i++) {
+            if (res.get(i).compareTo(res.get(i - 1)) < 0) return false;
         }
         return true;
     }
@@ -62,6 +62,13 @@ public class AVLTree<E extends Comparable> {
     //二叉查找树是否平衡
     public boolean isBalanced() {
         return isBalanced(root);
+    }
+
+    public boolean isBalanced(TreeNode node) {
+        if (node == null) return true;
+        int balanceFactor = getBalanceFactor(node);
+        if (Math.abs(balanceFactor) > 1) return false;
+        return isBalanced(node.left) && isBalanced(node.right);
     }
 
     // 左旋转
@@ -75,7 +82,7 @@ public class AVLTree<E extends Comparable> {
     // T1   T2
     public TreeNode rightRotate(TreeNode y) {
         TreeNode x = y.left;
-        TreeNode t3 = x.left;
+        TreeNode t3 = x.right;
 
         // 右旋转
         x.right = y;
@@ -84,7 +91,7 @@ public class AVLTree<E extends Comparable> {
         y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
         x.height = Math.max(getHeight(x.left), getHeight(x.right)) + 1;
 
-        return y;
+        return x;
     }
 
     // 对节点y进行向左旋转操作，返回旋转后新的根节点x
@@ -98,6 +105,7 @@ public class AVLTree<E extends Comparable> {
     public TreeNode leftRotate(TreeNode y) {
         TreeNode x = y.right;
         TreeNode t3 = x.left;
+
         // 左旋转
         x.left = y;
         y.right = t3;
@@ -109,12 +117,6 @@ public class AVLTree<E extends Comparable> {
         return x;
     }
 
-    public boolean isBalanced(TreeNode node) {
-        if (node == null) return true;
-        int balanceFactor = getBalanceFactor(node);
-        if (Math.abs(balanceFactor) <= 1) return true;
-        return false;
-    }
 
     public boolean isEmpty() {
         return size == 0;
@@ -155,7 +157,23 @@ public class AVLTree<E extends Comparable> {
         }
 
         //右边不平衡 进行左旋转
-        if (balanceFactor < -1 && getBalanceFactor(node.left) <= 0) {
+        if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0) {
+            return leftRotate(node);
+        }
+
+        //LR
+        if (balanceFactor > 1 && getBalanceFactor(node.left) < 0) {
+            //左旋LL
+            node.left = leftRotate(node.left);
+            //右旋
+            return rightRotate(node);
+        }
+
+        //RL
+        if (balanceFactor < -1 && getBalanceFactor(node.right) > 0) {
+            //右旋 RR
+            node.right = rightRotate(node.right);
+            //左旋
             return leftRotate(node);
         }
         return node;
