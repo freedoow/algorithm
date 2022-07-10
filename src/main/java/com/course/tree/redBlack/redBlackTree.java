@@ -143,13 +143,6 @@ public class redBlackTree<E extends Comparable> {
         root.color = BLACK;
     }
 
-    private TreeNode leftRotate() {
-
-    }
-
-    ;
-
-
     // 将节点E插入 node 节点的子树中
     // 返回插入节点后的二叉查找树的节点
     private TreeNode add(TreeNode node, E e) {
@@ -164,39 +157,19 @@ public class redBlackTree<E extends Comparable> {
         } else if (e.compareTo(node.data) > 0) {
             node.right = add(node.right, e);
         }
+        // 维护node为根节点 黑平衡
 
-        // 更新父亲接口的高度
-        // 父亲节点的高度值等于左右子节点最大高度值再加上1
-        node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
-
-        // 计算每个父亲节点的平衡因子
-        int balanceFactor = getBalanceFactor(node);
-
-        //左边不平衡 进行右旋转
-        if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0) {
-            return rightRotate(node);
+        if (isRED(node.right) && !isRED(node.left)) {
+            node = leftRotate(node);
         }
 
-        //右边不平衡 进行左旋转
-        if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0) {
-            return leftRotate(node);
+        if (isRED(node.right) && isRED(node.right.right)){
+            node = rightRotate(node);
+        }
+        if (isRED(node.left) && isRED(node.right)){
+            flipColors(node);
         }
 
-        //LR
-        if (balanceFactor > 1 && getBalanceFactor(node.left) < 0) {
-            //左旋LL
-            node.left = leftRotate(node.left);
-            //右旋
-            return rightRotate(node);
-        }
-
-        //RL
-        if (balanceFactor < -1 && getBalanceFactor(node.right) > 0) {
-            //右旋 RR
-            node.right = rightRotate(node.right);
-            //左旋
-            return leftRotate(node);
-        }
         return node;
     }
 
