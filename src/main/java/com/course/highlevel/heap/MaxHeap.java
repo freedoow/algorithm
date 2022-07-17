@@ -114,12 +114,11 @@ public class MaxHeap<E extends Comparable> {
             if (data.get(index).compareTo(data.get(maxNodeIndex)) >= 0) break;
 
             //交换
-            E tmp = data.get(index);
             data.set(index, data.get(maxNodeIndex));
-            data.set(maxNodeIndex, tmp);
-            
+
             index = maxNodeIndex;
         }
+        data.set(maxNodeIndex, tmp);
     }
 
 }
