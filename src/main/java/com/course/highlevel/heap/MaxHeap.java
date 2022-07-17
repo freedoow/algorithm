@@ -79,4 +79,47 @@ public class MaxHeap<E extends Comparable> {
         data.set(index, e);
     }
 
+    public E findMax() {
+        if (data.isEmpty()) throw new RuntimeException("空");
+        return data.get(0);
+    }
+
+    // 删除最大值
+    public E removeMax() {
+        E max = findMax();
+
+        //1，删除最后一个
+        E last = data.getLast();
+        data.set(0, last);
+
+        //2.删除最后一个
+        data.removeLast();
+
+        //3.将新的节点做下沉
+        siftDown(0);
+
+        return max;
+    }
+
+    private void siftDown(int index) {
+        // 有左子节点
+        while (leftChild(index) < data.getSize()) {
+            // 最大值
+            int maxNodeIndex = leftChild(index);
+            if (rightChild(index) < data.getSize()) {
+                if (data.get(rightChild(index)).compareTo(data.get(leftChild(index))) > 0) {
+                    maxNodeIndex = rightChild(index);
+                }
+            }
+            if (data.get(index).compareTo(data.get(maxNodeIndex)) >= 0) break;
+
+            //交换
+            E tmp = data.get(index);
+            data.set(index, data.get(maxNodeIndex));
+            data.set(maxNodeIndex, tmp);
+            
+            index = maxNodeIndex;
+        }
+    }
+
 }
