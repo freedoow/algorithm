@@ -20,10 +20,8 @@ public class MaxHeap<E extends Comparable> {
     }
 
     // 返回堆中的元素个数
-    public int.
-
-    getSize() {
-        return data.ge.getSize();
+    public int size() {
+        return data.getSize();
     }
 
     // 判断堆是否为空
@@ -65,19 +63,20 @@ public class MaxHeap<E extends Comparable> {
 
     //数组索引 index 元素上浮
     private void siftUp(int index) {
+        E e = data.get(index);
+
         while (index > 0) {
-            E e = data.get(index);
             E parentNode = data.get(parent(index));
 
             if (e.compareTo(parentNode) <= 0) break;
 
             //交换
             data.set(index, parentNode);
-            data.set(parent(index), e);
 
             //更新插入的元素节点为父亲节点的索引
             index = parent(index);
         }
+        data.set(index, e);
     }
 
 }
