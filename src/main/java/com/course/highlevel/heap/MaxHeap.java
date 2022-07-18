@@ -15,6 +15,14 @@ public class MaxHeap<E extends Comparable> {
         this.data = new ArrayList<>(capacity);
     }
 
+    //堆化过程 heapify
+    public MaxHeap(E[] arr) {
+        this.data = new ArrayList<>(arr);
+        for (int i = lastNonLeafIndex(); i >= 0; i--) {
+            siftDown(i);
+        }
+    }
+
     public MaxHeap() {
         this.data = new ArrayList<>();
     }
@@ -45,6 +53,14 @@ public class MaxHeap<E extends Comparable> {
             throw new IllegalArgumentException("index-0 does not have parent");
         }
         return (index - 1) / 2;
+    }
+
+    // 返回最后一个非叶子节点的索引值
+    private int lastNonLeaf() {
+        // 返回最后一个叶子节点的索引值
+        int lastLeafIndex = data.getSize() - 1;
+        // 最后一个叶子节点的父亲索引值就是做一个非叶子节点索引值
+        return parent(lastLeafIndex);
     }
 
     // 返回最后一个非叶子节点的索引值

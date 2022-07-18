@@ -1,5 +1,7 @@
 package com.course.line.array;
 
+import org.omg.CORBA.Object;
+
 /**
  * @author freedoow
  */
@@ -12,6 +14,14 @@ public class ArrayList<E> {
         this.data = (E[]) new Object[capacity];
         this.capacity = capacity;
         this.size = 0;
+    }
+
+    public ArrayList(E[] arr) {
+        this.data = (E[]) new Object[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            data[i] = arr[i];
+        }
+        size = arr.length;
     }
 
     public ArrayList() {
