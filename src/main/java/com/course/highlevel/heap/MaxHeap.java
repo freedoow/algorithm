@@ -102,6 +102,7 @@ public class MaxHeap<E extends Comparable> {
     }
 
     private void siftDown(int index) {
+        E e = data.get(index);
         // 有左子节点
         while (leftChild(index) < data.getSize()) {
             // 最大值
@@ -111,14 +112,15 @@ public class MaxHeap<E extends Comparable> {
                     maxNodeIndex = rightChild(index);
                 }
             }
-            if (data.get(index).compareTo(data.get(maxNodeIndex)) >= 0) break;
+            if (e.compareTo(data.get(maxNodeIndex)) >= 0) break;
 
             //交换
             data.set(index, data.get(maxNodeIndex));
 
             index = maxNodeIndex;
         }
-        data.set(maxNodeIndex, tmp);
+        data.set(index, e);
+
     }
 
 }
