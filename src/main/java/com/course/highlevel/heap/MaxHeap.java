@@ -96,7 +96,7 @@ public class MaxHeap<E extends Comparable> {
         data.removeLast();
 
         //3.将新的节点做下沉
-        siftDown(0);
+        if (!data.isEmpty()) siftDown(0);
 
         return max;
     }
