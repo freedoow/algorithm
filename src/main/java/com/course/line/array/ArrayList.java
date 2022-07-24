@@ -1,6 +1,5 @@
 package com.course.line.array;
 
-import org.omg.CORBA.Object;
 
 /**
  * @author freedoow
@@ -22,6 +21,7 @@ public class ArrayList<E> {
             data[i] = arr[i];
         }
         size = arr.length;
+        capacity = this.size;
     }
 
     public ArrayList() {
