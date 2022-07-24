@@ -2,12 +2,36 @@ package com.course.line.algo.linkedlist.tain;
 
 import com.course.line.algo.linkedlist.ListNode;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 /**
  * @author freedoow
  * @Description: 合并K个有序链表
  * @Date 2022-03-08
  */
 public class _23_MergeKLinkedLists {
+
+    //优先队列实现
+    public ListNode mergeLists(ListNode[] lists) {
+        PriorityQueue<ListNode> pg = new PriorityQueue<>((Comparator<ListNode>) (o1, o2) -> o1.value - o2.value);
+
+        for (ListNode node : lists) {
+            pg.add(node);
+        }
+        ListNode dummyNode = new ListNode(-1);
+        ListNode curr = dummyNode;
+
+        while (!pg.isEmpty()) {
+            ListNode minNode = pg.remove();
+            curr.next = minNode;
+            curr = curr.next;
+
+            if (minNode.next != null) pg.add(minNode.next);
+
+        }
+        return dummyNode.next;
+    }
 
 
     // 分治思想
@@ -22,8 +46,6 @@ public class _23_MergeKLinkedLists {
         return _21_MergeTwoSortedLists.merge(mergedLeftList, mergedRightList);
 
     }
-
-    ;
 
     //顺序合并
     public static ListNode merge(ListNode[] lists) {
