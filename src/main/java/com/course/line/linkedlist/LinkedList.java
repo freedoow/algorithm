@@ -4,6 +4,8 @@ package com.course.line.linkedlist;
  * @author freedoow
  */
 public class LinkedList<E> {
+
+
     private class Node {
         E e;
         Node next;
@@ -197,7 +199,7 @@ public class LinkedList<E> {
      */
     public boolean contains(E e) {
         Node curr = dummyHead.next;
-        while (curr.next != null) {
+        while (curr != null && curr.next != null) {
             if (curr.e.equals(e)) {
                 return true;
             }
@@ -205,6 +207,21 @@ public class LinkedList<E> {
         }
 
         return false;
+    }
+
+    public void removeElement(E e) {
+        if (dummyHead.next == null) throw new IllegalArgumentException("remove fail, LinkedList null");
+        Node prev = this.dummyHead;
+        Node curr = this.dummyHead.next;
+        while (curr != null) {
+            if (curr.e.equals(e)) {
+                break;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        prev.next = curr.next;
+        curr.next = null;
     }
 
     @Override

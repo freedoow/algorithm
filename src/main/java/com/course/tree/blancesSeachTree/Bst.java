@@ -63,8 +63,6 @@ public class Bst<E extends Comparable> {
                 } else {
                     curr = curr.right;
                 }
-                size++;
-                return;
             }
         }
     }
