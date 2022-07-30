@@ -14,7 +14,7 @@ public class HashSetOpenAddressing<E> implements Set<E> {
     private int size;
 
     // 装载因子
-    private double loadFactor = 0.75;
+    private double loadFactor = 0.3;
     // 用于记录有多少标记删除的元素
     private int deleteCount;
 
@@ -74,7 +74,7 @@ public class HashSetOpenAddressing<E> implements Set<E> {
     }
 
     private void resize(int newCapacity) {
-        Item[] newData = (Item[]) new Object[newCapacity];
+        Item[] newData =  new Item[newCapacity];
         for (int i = 0; i < items.length; i++) {
             if (items[i] != null) {
                 int newIndex = hash((E) items[i].data, newCapacity);
@@ -129,7 +129,11 @@ public class HashSetOpenAddressing<E> implements Set<E> {
         HashSetOpenAddressing<Object> set = new HashSetOpenAddressing<>();
         set.add(3);
         set.add(60);
-        set.add(44);
+        set.add(55);
+        set.add(60);
+        set.add(23);
+        set.add(42);
+        set.add(46);
         System.out.println(set.toString());
     }
 
