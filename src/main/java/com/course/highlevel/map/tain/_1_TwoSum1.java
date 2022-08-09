@@ -52,7 +52,7 @@ public class _1_TwoSum1 {
         if (nums == null || nums.length == 0) return new int[0];
 
         for (int i = 0; i < nums.length; i++) {
-
+            int x = nums[i];
             for (int j = i + 1; j < nums.length; j++) {
                 if (nums[j] == target - x) {
                     return new int[]{i, j};
