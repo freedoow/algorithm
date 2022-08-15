@@ -24,7 +24,7 @@ public class IpLocationParser {
         try {
             // 1. 读取文件，解析 ip 地址段 将ip转成长整型
             BufferedReader reader =
-                    new BufferedReader(new FileReader("/Users/wuhuabao/code/algo/algorithm/data/ip_location.txt"));
+                    new BufferedReader(new FileReader("/Users/whb/code/algo/algorithm/data/ip_location.txt"));
             String line = null;
             while ((line = reader.readLine()) != null) {
                 String[] temps = line.split(" ");
