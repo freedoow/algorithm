@@ -103,7 +103,7 @@ public class AdjacentHashList implements Graph {
 
     public static void main(String[] args) {
 
-        AdjacentHashList adjacentMatrix = new AdjacentHashList("/Users/whb/code/algo/algorithm/data/graph.txt");
+        AdjacentHashList adjacentMatrix = new AdjacentHashList("/Users/wuhuabao/code/algo/algorithm/data/graph.txt");
         System.out.println(adjacentMatrix);
     }
 }
