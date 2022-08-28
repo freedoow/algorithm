@@ -1,4 +1,4 @@
-package com.course.graph.dfs;
+package com.course.graph.dfs.conect;
 
 import com.course.graph.Graph;
 import com.course.graph.impl.AdjacentHashList;
@@ -12,14 +12,14 @@ import java.util.List;
  * @Description: 联通分量
  * @Date 2022-08-18
  */
-public class ConnectedComponentCount1 {
+public class ConnectedComponentCountOptimize {
     private Graph g;
     private List<Integer> res;
     private int[] visited;
     private int count = 0;
 
 
-    public ConnectedComponentCount1(Graph g) {
+    public ConnectedComponentCountOptimize(Graph g) {
         this.g = g;
         if (g == null) return;
         this.res = new ArrayList<>();
@@ -87,7 +87,7 @@ public class ConnectedComponentCount1 {
     public static void main(String[] args) {
 
         Graph g = new AdjacentHashList("/Users/whb/code/algo/algorithm/data/graph-dfs-cc.txt");
-        ConnectedComponentCount1 graphDfs = new ConnectedComponentCount1(g);
+        ConnectedComponentCountOptimize graphDfs = new ConnectedComponentCountOptimize(g);
         System.out.println(graphDfs.getRes());
         System.out.println(graphDfs.getCount());
         System.out.println(Arrays.toString(graphDfs.components()));

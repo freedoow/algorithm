@@ -1,4 +1,4 @@
-package com.course.graph.dfs;
+package com.course.graph.dfs.conect;
 
 import com.course.graph.Graph;
 import com.course.graph.impl.AdjacentHashList;
