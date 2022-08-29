@@ -133,6 +133,10 @@ public class WeightEdAdjacentHash implements Graph {
         return outDegress;
     }
 
+    public boolean isDirected() {
+        return isDirected;
+    }
+
     public static void main(String[] args) {
         WeightEdAdjacentHash adjacentMatrix = new WeightEdAdjacentHash("/Users/whb/code/algo/algorithm/data/weighted/graph-weighted.txt", true);
         System.out.println(adjacentMatrix.toString());

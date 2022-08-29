@@ -19,8 +19,8 @@ public class AdjacentHash implements Graph {
 
     private boolean isDirected;
 
-    private int[] inDegress;
-    private int[] outDegress;
+    private int[] inDegree;
+    private int[] outDegree;
 
     public AdjacentHash(String name, boolean isDirected) {
         this.isDirected = isDirected;
@@ -31,13 +31,14 @@ public class AdjacentHash implements Graph {
 
             this.V = Integer.valueOf(arr[0]);
             this.E = Integer.valueOf(arr[1]);
+
             this.data = new TreeSet[V];
             for (int i = 0; i < V; i++) {
                 data[i] = new TreeSet<>();
             }
 
-            this.inDegress =new int[V];
-            this.outDegress =new int[V];
+            this.inDegree =new int[V];
+            this.outDegree =new int[V];
             while ((line = reader.readLine()) != null) {
                 arr = line.split(" ");
                 int a = Integer.valueOf(arr[0]);
@@ -52,8 +53,8 @@ public class AdjacentHash implements Graph {
                 if (!isDirected) {
                     data[b].add(a);
                 }else { //有向图
-                    outDegress[a]++;
-                    outDegress[b]++;
+                    outDegree[a]++;
+                    inDegree[b]++;
                 }
             }
 
@@ -111,23 +112,31 @@ public class AdjacentHash implements Graph {
     // 获取指定顶点的度数
     @Override
     public int degree(int v) {
-        if (isDirected) throw new RuntimeException("无向图才可以计算");
-
-        return getTargetVAllV(v).size();
+        if (!isDirected) {
+            throw new RuntimeException("只有无向图才可以计算顶点的度数");
+        }
+        return data[v].size();
     }
+
 
     public boolean isDirected() {
         return isDirected;
     }
 
-    public int[] getInDegress() {
-        if (!isDirected)  throw new RuntimeException("有向图才可以计算");
-        return inDegress;
+    public int inDegree(int v) {
+        if (!isDirected) {
+            throw new RuntimeException("只有有向图才可以计算顶点的入度");
+        }
+        validateVertex(v);
+        return inDegree[v];
     }
 
-    public int[] getOutDegress() {
-        if (!isDirected)  throw new RuntimeException("有向图才可以计算");
-        return outDegress;
+    public int outDegree(int v) {
+        if (!isDirected) {
+            throw new RuntimeException("只有有向图才可以计算顶点的出度");
+        }
+        validateVertex(v);
+        return outDegree[v];
     }
 
     public static void main(String[] args) {
