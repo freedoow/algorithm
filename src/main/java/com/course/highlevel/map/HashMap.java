@@ -132,4 +132,7 @@ public class HashMap<K, V> implements Map<K, V> {
         Node<K, V> curr = getNode(key);
         return curr != null;
     }
+
+    public void put(V playerId, V i) {
+    }
 }
