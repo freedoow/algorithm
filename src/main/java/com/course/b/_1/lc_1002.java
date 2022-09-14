@@ -38,5 +38,6 @@ public class lc_1002 {
                 res.add(String.valueOf(i + 'a'));
             }
         }
+        return res;
     }
 }
