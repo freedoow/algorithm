@@ -5,7 +5,7 @@ package com.course.b._1;
  * @Description:
  * @Date 2022-09-14
  */
-public class lc_1370 {
+public class Lc_1370 {
     public String sortString(String s) {
         int[] counts = new int[26];
 
@@ -34,7 +34,7 @@ public class lc_1370 {
     }
 
     public static void main(String[] args) {
-        lc_1370 lc_1370 = new lc_1370();
+        Lc_1370 lc_1370 = new Lc_1370();
         System.out.println(lc_1370.sortString("aaaabbbbcccc"));
     }
 }

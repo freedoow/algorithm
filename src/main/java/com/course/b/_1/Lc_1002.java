@@ -8,7 +8,7 @@ import java.util.List;
  * @Description:
  * @Date 2022-09-14
  */
-public class lc_1002 {
+public class Lc_1002 {
     public List<String> commonChars(String[] A) {
         //每个字符在所有字符串出现的最小次数
         int[] minfreq = new int[26];

@@ -8,7 +8,7 @@ import java.util.List;
  * @Description:
  * @Date 2022-09-13
  */
-public class lc_442 {
+public class Lc_442 {
     public List<Integer> findDuplicates(int[] nums) {
         ArrayList<Integer> res = new ArrayList<>();
         int n = nums.length;
